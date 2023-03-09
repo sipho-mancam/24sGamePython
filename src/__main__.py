@@ -55,6 +55,7 @@ class NumberGenerator:
         return output_list
     
     def __generate_combos(self, input_pair:tuple, target_pair:tuple, test_set:set)->list:
+      
         try:
             test_set.remove(input_pair[0])
             test_set.remove(input_pair[1])
@@ -106,6 +107,7 @@ class NumberGenerator:
        # generate x, and y randomly from the set,
        # initialize the running set
        # start the generator
+       # create output
        x = random.choice(self.main_set)
        self.main_set.remove(x)
        y = random.choice(self.main_set)
@@ -113,6 +115,22 @@ class NumberGenerator:
        self.running_set = self.main_set.copy()
 
        output_space  = self.__generate_all_combinations((x,y)) 
+
+       out_set = random.choice(output_space)
+
+       output_ready = []
+       rand = out_set[0]
+       output_ready.append(rand[0])
+       output_ready.append(rand[1])
+
+       j_i = out_set[1]
+       j_i_r = random.choice(j_i)
+       output_ready.append(j_i_r[0])
+       i_th = j_i_r[1]
+       output_ready.append(random.choice(list(i_th)))
+
+       return output_ready
+
             
             
     
