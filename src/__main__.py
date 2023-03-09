@@ -2,16 +2,14 @@ import math
 import random
 
 
-source = [1,2,3,4,5,6,7,8,9]
+SOURCE = [1,2,3,4,5,6,7,8,9]
 
-main_set = set(source)
+# MAIN_SET = set(SOURCE)
 
 
 def main():
-    ng = NumberGenerator(source=source)
-
+    ng = NumberGenerator(source=SOURCE)
     # print(ng.__run_test(3, 12, main_set))
-    
     print(ng.run())
 
 class NumberGenerator:
@@ -95,6 +93,7 @@ class NumberGenerator:
             if len(res) > 0:
                 output.append([(input_pair[0], input_pair[1]), res])
         
+        # run the algorithm in reverse.
         for target_pair in self.r_multiples:
             # the running set is the complete set without the x, y inputs that were chosen at random.
             res = self.__generate_combos(input_pair, target_pair, self.running_set)
@@ -132,12 +131,6 @@ class NumberGenerator:
        return output_ready
 
             
-            
-    
-
-
-
-
 if __name__ == '__main__':
     main()
 
