@@ -81,7 +81,6 @@ class NumberGenerator:
             if len(i_jth_list) > 0: # add it to the output only if it has a corresponding i
                 res = (j, i_jth_list)
                 output_list.append(res)
-
         return output_list
 
     def __generate_all_combinations(self, input_pair:tuple)->list:
