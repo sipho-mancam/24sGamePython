@@ -8,14 +8,28 @@ SOURCE = [1,2,3,4,5,6,7,8,9]
 
 
 def main():
-    ng = NumberGenerator(source=SOURCE)
+    ng = NumberGenerator(target=12, source=SOURCE)
     # print(ng.__run_test(3, 12, main_set))
     print(ng.run())
+    # print(calculate_Mulitples(24))
+
+
+def calculate_Mulitples(inp:int)->list[tuple]:
+    target = inp;
+
+    output = set()
+
+    for i in range(1, target+1):
+        if target % i == 0:
+            output.add((i, int(target/i)))
+    return output
+
+
 
 class NumberGenerator:
     def __init__(self, target=24, source:set=set())->None:
         self.target = target;
-        self.multiples = [(1, 24), (2, 12), (3,8), (4, 6)]
+        self.multiples = self.__calculate_Mulitples()
         self.r_multiples = [(24,1), (12, 2), (8,3), (6,4)]
         self.main_set = source
         self.running_set = None
@@ -29,7 +43,15 @@ class NumberGenerator:
             return new_set
         except KeyError as ke:
             return set_n
+        
     
+    def __calculate_Mulitples(self)->list[tuple]:
+        output = []
+        for i in range(1, self.target+1):
+            if self.target % i == 0:
+                output.append((i, int(self.target/i)))
+        return output
+        
     def __run_test(self, in_v:int, target:int, test_set:set)->dict:
         j = 0
         output_list = set()
@@ -93,11 +115,11 @@ class NumberGenerator:
                 output.append([(input_pair[0], input_pair[1]), res])
         
         # run the algorithm in reverse.
-        for target_pair in self.r_multiples:
-            # the running set is the complete set without the x, y inputs that were chosen at random.
-            res = self.__generate_combos(input_pair, target_pair, self.running_set)
-            if len(res) > 0:
-                output.append([(input_pair[0], input_pair[1]), res])
+        # for target_pair in self.r_multiples:
+        #     # the running set is the complete set without the x, y inputs that were chosen at random.
+        #     res = self.__generate_combos(input_pair, target_pair, self.running_set)
+        #     if len(res) > 0:
+        #         output.append([(input_pair[0], input_pair[1]), res])
 
         return output
     
