@@ -10,15 +10,14 @@ SOURCE = [1,2,3,4,5,6,7,8,9]
 def main():
     ng = NumberGenerator(target=12, source=SOURCE)
     # print(ng.__run_test(3, 12, main_set))
-    print(ng.run())
+    for i in range(100):
+        print(ng.run())
     # print(calculate_Mulitples(24))
 
 
 def calculate_Mulitples(inp:int)->list[tuple]:
     target = inp;
-
     output = set()
-
     for i in range(1, target+1):
         if target % i == 0:
             output.add((i, int(target/i)))
@@ -30,9 +29,10 @@ class NumberGenerator:
     def __init__(self, target=24, source:set=set())->None:
         self.target = target;
         self.multiples = self.__calculate_Mulitples()
-        self.r_multiples = [(24,1), (12, 2), (8,3), (6,4)]
         self.main_set = source
         self.running_set = None
+        self.__generate_sums()
+
 
     def __remove_entry(self, n:int, set_n:set)->set:
         # make a copy of the set, to not mess with the original
@@ -43,7 +43,13 @@ class NumberGenerator:
             return new_set
         except KeyError as ke:
             return set_n
-        
+
+    def __generate_sums(self):
+        MAX_SIZE = len(self.multiples)+10
+        for i in range(1, MAX_SIZE):
+            i = random.randint(1, self.target*2)
+            if i != self.target:
+                self.multiples.append((i, abs(self.target-i)))
     
     def __calculate_Mulitples(self)->list[tuple]:
         output = []
@@ -127,13 +133,13 @@ class NumberGenerator:
        # generate x, and y randomly from the set,
        # initialize the running set
        # start the generator
-       # create output
-       x = random.choice(self.main_set)
-       self.main_set.remove(x)
-       y = random.choice(self.main_set)
-       self.main_set.remove(y)
        self.running_set = self.main_set.copy()
 
+       x = random.choice(self.running_set)
+       self.running_set.remove(x)
+       y = random.choice(self.running_set)
+       self.running_set.remove(y)
+       
        output_space  = self.__generate_all_combinations((x,y)) 
 
        out_set = random.choice(output_space)
